@@ -17,7 +17,7 @@ class NeuronT1 {
   })  : weights = <double>[],
         bias = Helpers.randomValue();
 
-  void updateNeurons(List<double> inputValues) {
+  void addInputs(List<double> inputValues) {
     inputs.clear();
     for (final double input in inputValues) {
       inputs.add(input);

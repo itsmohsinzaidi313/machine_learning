@@ -19,9 +19,18 @@ class NeuronLayer {
     int count = 1,
   }) : neurons = <NeuronT1>[] {
     for (var i = 0; i < count; i++) {
-      final n = NeuronT1(i);
-      n.bias = Helpers.randomValue();
+      final n = NeuronT1(i)..bias = Helpers.randomValue();
       neurons.add(n);
+    }
+  }
+
+  void x(NeuronLayer inLayer) {
+    for (var i = 0; i < neurons.length; i++) {
+      List<double> outputs = [];
+      for (var j = 0; j < inLayer.neurons.length; j++) {
+        outputs.add(inLayer.neurons[j].output);
+      }
+      neurons[i].addInputs(outputs);
     }
   }
 
@@ -31,14 +40,14 @@ class NeuronLayer {
       for (var j = 0; j < inLayer.neurons.length; j++) {
         outputs.add(inLayer.neurons[j].output);
       }
-      neurons[i].updateNeurons(outputs);
+      neurons[i].addInputs(outputs);
     }
   }
 
   void updateInputs(List<List<double>> inputs) {
     for (final NeuronT1 neuron in neurons) {
       for (var input in inputs) {
-        neuron.updateNeurons(input);
+        neuron.addInputs(input);
       }
     }
   }
